@@ -1,0 +1,1264 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri GST Interiors | Plywood & Hardware — Bhimavaram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c9a84c;--gold2:#e8cc7a;
+  --brown:#5c3d1e;--brown2:#8b5e3c;
+  --cream:#faf6f0;--dark:#1a1410;--text:#3a2e26;--muted:#7a6a5a;
+  --border:#e8ddd0;--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--brown);color:rgba(255,255,255,.85);font-size:.78rem;padding:.45rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--gold);text-decoration:none}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:900;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--brown);text-decoration:none;line-height:1.1}
+.nav-logo span{color:var(--gold);display:block;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif}
+.nav-links{display:flex;list-style:none;height:68px}
+.nav-links a{text-decoration:none;font-size:.78rem;font-weight:700;color:var(--text);padding:0 1rem;letter-spacing:.06em;text-transform:uppercase;height:68px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all .2s}
+.nav-links a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--dark);padding:.6rem 1.4rem;font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:background .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--brown);color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--brown);transition:all .3s}
+
+/* ── HERO SLIDER (CSS-only transitions, no GSAP) ── */
+.hero{position:relative;height:calc(100vh - 112px);min-height:500px;overflow:hidden;background:var(--dark)}
+.hero-track{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;pointer-events:none}
+.slide.active{opacity:1;pointer-events:auto}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center 40%;background-repeat:no-repeat}
+.slide-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,rgba(26,20,16,.85) 0%,rgba(26,20,16,.4) 55%,rgba(26,20,16,.15) 100%)}
+.slide-content{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:0 6rem;z-index:2;max-width:820px}
+.slide-tag{display:inline-block;background:var(--gold);color:var(--dark);font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:.3rem .9rem;margin-bottom:1.2rem;width:fit-content}
+.slide h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,4rem);color:#fff;font-weight:900;line-height:1.12;margin-bottom:.8rem;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.slide h3{font-size:.88rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.2rem}
+.slide p{font-size:.97rem;color:rgba(255,255,255,.72);line-height:1.75;max-width:500px;margin-bottom:2rem}
+.slide-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--dark);padding:.85rem 2rem;font-weight:800;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .25s}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline-w{border:2px solid rgba(255,255,255,.45);color:#fff;padding:.85rem 2rem;font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .25s}
+.btn-outline-w:hover{border-color:var(--gold);color:var(--gold)}
+/* arrows */
+.hero-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;width:50px;height:50px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;transition:all .25s;backdrop-filter:blur(4px)}
+.hero-arrow:hover{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+.hero-arrow.prev{left:1.5rem}
+.hero-arrow.next{right:1.5rem}
+/* dots */
+.hero-dots{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.6rem;z-index:10}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .35s;border:none}
+.hero-dot.active{background:var(--gold);width:26px;border-radius:4px}
+/* progress bar */
+.hero-bar{position:absolute;bottom:0;left:0;height:3px;background:var(--gold);z-index:10;animation:slideProgress 5s linear forwards}
+@keyframes slideProgress{from{width:0}to{width:100%}}
+@keyframes fadeInCard{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── STATS ── */
+.stats-bar{background:var(--brown);display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{padding:1.8rem 1.5rem;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--gold);display:block;line-height:1}
+.stat-title{font-size:.73rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.08em;margin:.3rem 0 .15rem;display:block}
+.stat-sub{font-size:.68rem;color:rgba(255,255,255,.4);display:block}
+
+/* ── SECTIONS ── */
+section{padding:5rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-tag-line{display:flex;align-items:center;justify-content:center;gap:.7rem;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.section-tag-line::before,.section-tag-line::after{content:'';display:block;width:2rem;height:1px;background:var(--gold)}
+.section-h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);color:var(--brown);font-weight:700;line-height:1.2;margin-bottom:.8rem}
+.section-h2 em{font-style:italic;color:var(--brown2)}
+.section-p{font-size:.96rem;color:var(--muted);line-height:1.8;max-width:600px;margin:0 auto}
+
+/* ── RECENT PROJECTS (Manager uploads) ── */
+#recent-projects{background:var(--white);padding:4rem 2rem}
+
+/* ── ABOUT ── */
+#about{background:var(--cream)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img-main{width:100%;height:460px;object-fit:cover;display:block}
+.about-img-thumb{position:absolute;bottom:-1.5rem;right:-1.5rem;width:170px;height:130px;object-fit:cover;border:4px solid #fff;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.about-badge{position:absolute;top:1.5rem;left:-1.5rem;background:var(--gold);padding:1.2rem 1.6rem;text-align:center}
+.about-badge .num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--dark);display:block;line-height:1}
+.about-badge .lbl{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--dark)}
+.about-text .section-tag-line{justify-content:flex-start}
+.about-text .section-h2{text-align:left}
+.about-text p{font-size:.94rem;color:var(--muted);line-height:1.82;margin-bottom:1rem}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.5rem}
+.about-feat{display:flex;align-items:center;gap:.7rem;font-size:.86rem;font-weight:700;color:var(--text);padding:.55rem;background:#fff;transition:all .22s}
+.about-feat:hover{background:var(--gold);color:var(--dark);transform:translateX(4px)}
+.about-feat .icon{width:34px;height:34px;background:var(--brown2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;flex-shrink:0;transition:background .22s}
+.about-feat:hover .icon{background:var(--dark)}
+
+/* ── SERVICES ── */
+#services{background:#fff}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.service-card{border:1px solid var(--border);padding:2.2rem 1.8rem;position:relative;overflow:hidden;cursor:pointer;background:#fff;transition:all .32s}
+.service-card::before{content:'';position:absolute;inset:0;background:var(--brown);transform:translateY(100%);transition:transform .38s cubic-bezier(.77,0,.18,1);z-index:0}
+.service-card:hover::before{transform:translateY(0)}
+.service-card>*{position:relative;z-index:1}
+.svc-icon{width:58px;height:58px;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem;transition:all .32s}
+.service-card:hover .svc-icon{background:var(--gold)}
+.service-card h3{font-family:'Playfair Display',serif;font-size:1.18rem;color:var(--brown);margin-bottom:.7rem;font-weight:700;transition:color .32s}
+.service-card:hover h3{color:var(--gold)}
+.service-card p{font-size:.88rem;color:var(--muted);line-height:1.7;transition:color .32s}
+.service-card:hover p{color:rgba(255,255,255,.7)}
+.svc-num{position:absolute;bottom:1.2rem;right:1.8rem;font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;color:var(--border);line-height:1;transition:color .32s;z-index:1}
+.service-card:hover .svc-num{color:rgba(255,255,255,.06)}
+
+/* ── GALLERY ── */
+#gallery{background:var(--cream)}
+.gallery-tabs{display:flex;justify-content:center;margin-bottom:2.2rem;border:1px solid var(--border);width:fit-content;margin-left:auto;margin-right:auto}
+.gtab{padding:.6rem 1.5rem;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;cursor:pointer;border:none;background:none;color:var(--muted);transition:all .2s;border-right:1px solid var(--border)}
+.gtab:last-child{border-right:none}
+.gtab.active{background:var(--gold);color:var(--dark)}
+.gallery-panel{display:none}
+.gallery-panel.active{display:block}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}
+.gallery-grid.lg .gallery-item:first-child{grid-column:span 2;grid-row:span 2}
+.gallery-item{overflow:hidden;position:relative;cursor:pointer;background:var(--dark)}
+.gallery-item img{width:100%;height:210px;object-fit:cover;display:block;transition:transform .5s,filter .5s}
+.gallery-grid.lg .gallery-item:first-child img{height:432px}
+.gallery-item:hover img{transform:scale(1.07);filter:brightness(.82)}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,20,16,.82) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1rem}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{color:#fff;font-size:.8rem;font-weight:700}
+.gallery-expand{position:absolute;top:.7rem;right:.7rem;width:30px;height:30px;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--dark);font-size:.85rem;opacity:0;transition:opacity .3s}
+.gallery-item:hover .gallery-expand{opacity:1}
+/* Lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:3000;display:none;align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain}
+.lb-close{position:absolute;top:1.2rem;right:1.5rem;color:#fff;font-size:2rem;cursor:pointer;background:none;border:none}
+.lb-close:hover{color:var(--gold)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:#fff;width:50px;height:50px;font-size:1.2rem;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.lb-nav:hover{background:var(--gold);color:var(--dark)}
+.lb-prev{left:1.2rem}.lb-next{right:1.2rem}
+
+/* ── VIDEO SECTION ── */
+#video-section{background:var(--dark);padding:5rem 2rem}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+.video-wrap video{width:100%;height:400px;object-fit:cover;display:block}
+.video-text{color:#fff}
+.video-text .section-tag-line{justify-content:flex-start;color:var(--gold)}
+.video-text .section-tag-line::before,.video-text .section-tag-line::after{background:var(--gold)}
+.video-text .section-h2{color:#fff;text-align:left}
+.video-text .section-h2 em{color:var(--gold)}
+.video-text p{color:rgba(255,255,255,.62);line-height:1.82;margin-bottom:1.4rem}
+.video-list{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.8rem}
+.video-list li{display:flex;align-items:center;gap:.7rem;font-size:.88rem;color:rgba(255,255,255,.72);font-weight:600}
+.video-list li::before{content:'✓';width:22px;height:22px;background:var(--gold);color:var(--dark);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.72rem;flex-shrink:0}
+
+/* ── 360 VIEW ── */
+#view360{background:linear-gradient(135deg,var(--brown) 0%,#3d2510 100%);padding:5rem 2rem}
+.view360-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.view360-text .section-tag-line{justify-content:flex-start;color:var(--gold)}
+.view360-text .section-tag-line::before,.view360-text .section-tag-line::after{background:var(--gold)}
+.view360-text .section-h2{color:#fff;text-align:left}
+.view360-text .section-h2 em{color:var(--gold)}
+.view360-text p{color:rgba(255,255,255,.62);line-height:1.82;margin-bottom:1.8rem}
+.view360-frame{position:relative;border:3px solid rgba(201,168,76,.3);box-shadow:0 20px 56px rgba(0,0,0,.5)}
+.view360-frame iframe{width:100%;height:400px;display:block;border:none}
+
+/* ── BEFORE AFTER ── */
+#beforeafter{background:var(--dark);padding:5rem 2rem}
+.ba-wrap{position:relative;overflow:hidden;cursor:col-resize;user-select:none;max-width:900px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.ba-before-img{width:100%;height:480px;object-fit:cover;display:block}
+.ba-after-layer{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden}
+.ba-after-layer img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
+.ba-divider{position:absolute;top:0;left:50%;height:100%;width:2px;background:var(--gold);transform:translateX(-50%);pointer-events:none}
+.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--dark);font-weight:900;box-shadow:0 4px 18px rgba(0,0,0,.4);pointer-events:none}
+.ba-labels{display:flex;justify-content:space-between;max-width:900px;margin:1rem auto 0}
+.ba-label{font-size:.76rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase}
+.ba-label.after{color:var(--gold)}
+
+/* ── TESTIMONIALS ── */
+#testimonials{background:#fff}
+.testi-track-wrap{overflow:hidden}
+.testi-track{display:flex;gap:1.4rem;transition:transform .55s cubic-bezier(.77,0,.18,1)}
+.testi-card{min-width:calc(33.333% - 1rem);background:var(--cream);padding:2rem;border-left:4px solid var(--gold);flex-shrink:0;transition:box-shadow .3s,transform .3s}
+.testi-card:hover{box-shadow:0 8px 28px rgba(139,94,60,.12);transform:translateY(-4px)}
+.testi-stars{color:var(--gold);font-size:.85rem;margin-bottom:.6rem}
+.testi-text{font-size:.9rem;color:var(--text);line-height:1.75;margin-bottom:1.4rem}
+.testi-author{display:flex;align-items:center;gap:.8rem}
+.testi-avatar{width:46px;height:46px;border-radius:50%;background:var(--brown2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:800;flex-shrink:0}
+.testi-name{font-weight:800;font-size:.88rem;color:var(--brown);display:block}
+.testi-place{font-size:.74rem;color:var(--muted)}
+.testi-nav{display:flex;justify-content:center;gap:.7rem;margin-top:1.8rem}
+.testi-nav button{width:42px;height:42px;border:1px solid var(--border);background:none;cursor:pointer;font-size:.95rem;transition:all .22s;display:flex;align-items:center;justify-content:center}
+.testi-nav button:hover{background:var(--gold);border-color:var(--gold);color:var(--dark)}
+
+/* ── WHY US ── */
+.whyus-section{background:var(--brown);padding:5rem 2rem}
+.whyus-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.why-item{background:var(--brown);padding:2.5rem 1.8rem;text-align:center;transition:background .3s}
+.why-item:hover{background:rgba(255,255,255,.05)}
+.why-icon{font-size:2.4rem;margin-bottom:1rem;display:block}
+.why-item h4{font-family:'Playfair Display',serif;font-size:1.08rem;color:var(--gold);margin-bottom:.5rem}
+.why-item p{font-size:.82rem;color:rgba(255,255,255,.52);line-height:1.62}
+
+/* ── CONTACT ── */
+#contact{background:var(--cream)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start}
+.contact-info h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--brown);margin-bottom:1.6rem}
+.contact-item{display:flex;gap:.9rem;margin-bottom:1.4rem}
+.c-icon{width:46px;height:46px;background:var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.c-label{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.2rem;display:block}
+.c-val{font-size:.92rem;font-weight:600;color:var(--text);line-height:1.5}
+.c-val a{color:var(--brown2);text-decoration:none}
+.c-val a:hover{color:var(--gold)}
+.hours-table{width:100%;border-collapse:collapse;margin-top:1rem}
+.hours-table td{padding:.4rem 0;font-size:.86rem;color:var(--muted);border-bottom:1px solid var(--border)}
+.hours-table td:first-child{font-weight:700;color:var(--text);width:55%}
+.contact-form{background:#fff;padding:2.5rem;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.contact-form h3{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--brown);margin-bottom:1.3rem}
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.4rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.75rem .9rem;border:1px solid var(--border);font-family:'Nunito Sans',sans-serif;font-size:.9rem;color:var(--text);background:var(--cream);outline:none;transition:border .22s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.btn-submit{width:100%;background:var(--gold);color:var(--dark);border:none;padding:1rem;font-family:'Nunito Sans',sans-serif;font-size:.88rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;transition:all .22s}
+.btn-submit:hover{background:var(--brown);color:#fff}
+.success-msg{display:none;background:#e8f5e9;color:#2e7d32;padding:.9rem;text-align:center;font-weight:700;margin-top:.9rem;font-size:.88rem}
+
+/* ── MAP ── */
+.map-section{height:380px;overflow:hidden}
+.map-section iframe{width:100%;height:100%;border:none;display:block}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);color:rgba(255,255,255,.65)}
+.footer-main{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;padding:4rem 2rem;max-width:1200px;margin:0 auto}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:#fff;text-decoration:none;line-height:1.1;display:block;margin-bottom:1rem}
+.footer-logo span{color:var(--gold);display:block;font-size:.56rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif}
+.footer-brand p{font-size:.84rem;line-height:1.72;color:rgba(255,255,255,.42);margin-bottom:1.2rem}
+.footer-social{display:flex;gap:.5rem}
+.social-btn{width:36px;height:36px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);text-decoration:none;font-size:.82rem;transition:all .22s}
+.social-btn:hover{background:var(--gold);color:var(--dark)}
+.footer-col h4{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--gold);margin-bottom:1.1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul a{font-size:.82rem;color:rgba(255,255,255,.46);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.35rem}
+.footer-col ul a::before{content:'›';color:var(--gold)}
+.footer-col ul a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);text-align:center;padding:1.2rem;font-size:.76rem;color:rgba(255,255,255,.28)}
+.footer-bottom strong{color:var(--gold)}
+/* Manager login btn in footer */
+.mgr-login-btn{background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.28);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;cursor:pointer;transition:all .22s;font-family:'Nunito Sans',sans-serif;margin-top:.5rem}
+.mgr-login-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── FLOATING ── */
+.float-btns{position:fixed;right:1.4rem;bottom:1.8rem;z-index:500;display:flex;flex-direction:column;gap:.7rem;align-items:flex-end}
+.float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.3rem;box-shadow:0 4px 18px rgba(0,0,0,.28);transition:all .22s;border:none;cursor:pointer}
+.float-btn:hover{transform:scale(1.1) translateY(-2px)}
+.float-wa{background:#25d366;color:#fff}
+.float-call{background:var(--gold);color:var(--dark)}
+
+/* ── MANAGER DASHBOARD MODAL ── */
+.mgr-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:5000;display:none;align-items:center;justify-content:center;padding:1rem}
+.mgr-modal.open{display:flex}
+.mgr-box{background:#1e1710;border:1px solid rgba(201,168,76,.25);width:100%;max-width:760px;max-height:92vh;overflow-y:auto;position:relative;animation:popUp .35s ease both}
+@keyframes popUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.mgr-header{background:rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.2);padding:1.4rem 1.8rem;display:flex;align-items:center;justify-content:space-between}
+.mgr-header h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.3rem}
+.mgr-close{background:none;border:none;color:rgba(255,255,255,.4);font-size:1.4rem;cursor:pointer;transition:color .2s}
+.mgr-close:hover{color:var(--gold)}
+.mgr-body{padding:1.8rem}
+/* login form */
+.mgr-login-form{max-width:360px;margin:0 auto;padding:1rem 0}
+.mgr-login-form h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.2rem;margin-bottom:.4rem;text-align:center}
+.mgr-login-form p{font-size:.82rem;color:rgba(255,255,255,.4);text-align:center;margin-bottom:1.5rem}
+.mgr-field{margin-bottom:1rem}
+.mgr-field label{display:block;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:.4rem}
+.mgr-field input{width:100%;padding:.72rem .9rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:'Nunito Sans',sans-serif;font-size:.9rem;outline:none;transition:border .22s}
+.mgr-field input:focus{border-color:var(--gold)}
+.mgr-submit{width:100%;background:var(--gold);color:var(--dark);border:none;padding:.9rem;font-family:'Nunito Sans',sans-serif;font-size:.86rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;transition:background .22s;margin-top:.4rem}
+.mgr-submit:hover{background:var(--gold2)}
+.mgr-error-msg{color:#ff8888;font-size:.8rem;text-align:center;margin-top:.6rem;display:none}
+/* dashboard */
+.mgr-dashboard{display:none}
+.mgr-dashboard.visible{display:block}
+.mgr-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:1.8rem}
+.mgr-tab{padding:.65rem 1.3rem;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.38);border-bottom:2px solid transparent;transition:all .22s;font-family:'Nunito Sans',sans-serif}
+.mgr-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.mgr-tab-panel{display:none}
+.mgr-tab-panel.active{display:block}
+/* upload area */
+.mgr-upload-area{border:2px dashed rgba(201,168,76,.3);padding:2rem;text-align:center;cursor:pointer;transition:all .22s;margin-bottom:1.2rem}
+.mgr-upload-area:hover,.mgr-upload-area.drag{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.mgr-upload-area .upload-icon{font-size:2.5rem;margin-bottom:.6rem;display:block}
+.mgr-upload-area p{font-size:.85rem;color:rgba(255,255,255,.45)}
+.mgr-upload-area input[type=file]{display:none}
+.mgr-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.8rem}
+.mgr-preview-item{position:relative;height:90px;overflow:hidden}
+.mgr-preview-item img{width:100%;height:100%;object-fit:cover;display:block}
+.mgr-preview-item .remove-btn{position:absolute;top:.3rem;right:.3rem;width:22px;height:22px;background:rgba(255,0,0,.7);border:none;color:#fff;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mgr-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem}
+.mgr-input{width:100%;padding:.65rem .85rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;font-family:'Nunito Sans',sans-serif;font-size:.88rem;outline:none;transition:border .22s}
+.mgr-input:focus{border-color:var(--gold)}
+.mgr-input::placeholder{color:rgba(255,255,255,.25)}
+.mgr-action-btn{background:var(--gold);color:var(--dark);border:none;padding:.72rem 1.6rem;font-family:'Nunito Sans',sans-serif;font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;transition:background .22s}
+.mgr-action-btn:hover{background:var(--gold2)}
+.mgr-action-btn.danger{background:rgba(255,80,80,.15);color:#ff8888;border:1px solid rgba(255,80,80,.25)}
+.mgr-action-btn.danger:hover{background:rgba(255,80,80,.3)}
+.mgr-status{font-size:.8rem;color:rgba(255,255,255,.4);margin-top:.6rem;min-height:1.1rem}
+.mgr-status.ok{color:#69db7c}
+.mgr-status.err{color:#ff8888}
+/* existing photos list */
+.mgr-photos-list{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:.8rem;max-height:340px;overflow-y:auto}
+.mgr-photo-card{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.mgr-photo-card img{width:100%;height:90px;object-fit:cover;display:block}
+.mgr-photo-card .card-info{padding:.4rem .5rem;font-size:.72rem;color:rgba(255,255,255,.5)}
+.mgr-photo-card .del-btn{position:absolute;top:.3rem;right:.3rem;width:24px;height:24px;background:rgba(255,0,0,.7);border:none;color:#fff;font-size:.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* review form */
+.review-list{display:flex;flex-direction:column;gap:.7rem;max-height:300px;overflow-y:auto;margin-bottom:1rem}
+.review-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:.8rem;display:flex;justify-content:space-between;align-items:start;gap:.8rem}
+.review-item .rv-text{flex:1}
+.review-item .rv-name{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:.2rem}
+.review-item .rv-body{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.5}
+/* logout */
+.mgr-logout-bar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0 1.4rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:1.4rem}
+.mgr-logout-bar span{font-size:.82rem;color:rgba(255,255,255,.45)}
+.mgr-logout-bar strong{color:var(--gold)}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{position:fixed;inset:0;background:var(--dark);z-index:1000;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.5rem;transform:translateX(110%);transition:transform .42s cubic-bezier(.77,0,.18,1)}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav a{color:#fff;text-decoration:none;font-size:1.25rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;transition:color .2s}
+.mobile-nav a:hover{color:var(--gold)}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer}
+
+@media(max-width:1024px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .whyus-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-main{grid-template-columns:1fr 1fr}
+  .about-grid,.contact-grid,.video-grid,.view360-grid{grid-template-columns:1fr}
+  .about-badge{left:1rem}
+  .testi-card{min-width:calc(50% - .7rem)}
+  .mgr-preview,.mgr-photos-list{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  nav{padding:0 1.2rem}
+  .slide-content{padding:0 1.8rem}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .services-grid,.gallery-grid{grid-template-columns:1fr}
+  .testi-card{min-width:100%}
+  .whyus-grid{grid-template-columns:1fr 1fr}
+  .footer-main{grid-template-columns:1fr;gap:2rem}
+  .form-row,.mgr-form-row{grid-template-columns:1fr}
+  .float-btns{right:.8rem;bottom:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📍 Railway Gate Bypass Road, Bhimavaram, AP 534201</span>
+  <span><a href="tel:+919394543143">+91 93945 43143</a> &nbsp;|&nbsp; Mon–Sat: 9 AM – 8:30 PM</span>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#home" class="nav-logo">Sri GST Interiors <span>Plywood & Hardware — Bhimavaram</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="/founders/">Founders</a></li>
+    <li><a href="#video-section">Video</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Free Quote</a>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#gallery" onclick="closeMobileNav()">Gallery</a>
+  <a href="/founders/">Founders</a>
+  <a href="#video-section" onclick="closeMobileNav()">Video</a>
+  <a href="#testimonials" onclick="closeMobileNav()">Reviews</a>
+  <a href="/contact/">Contact</a>
+  <a href="tel:+919394543143" style="color:var(--gold);margin-top:.8rem;font-size:.95rem">📞 +91 93945 43143</a>
+</div>
+
+<!-- ════════════════ HERO ════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-track" id="heroTrack">
+
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=75&auto=format')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Welcome to Sri GST Interiors</span>
+        <h2>Transform Your Space Into a Dream Home</h2>
+        <h3>Premium Interiors · Termite-Proof Plywood · Hardware</h3>
+        <p>Bhimavaram's most trusted destination for custom furniture and quality hardware — crafted with precision by Mr. Raja's team.</p>
+        <div class="slide-btns">
+          <a href="#services" class="btn-gold">Explore Services</a>
+          <a href="/contact/" class="btn-outline-w">Get Free Quote</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=75&auto=format')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Quality Materials</span>
+        <h2>Termite-Proof Plywood, Rust-Proof Hardware</h2>
+        <h3>ISI Certified · Long Lasting · Best Brands</h3>
+        <p>We source only the finest termite-resistant plywood and rust-proof hardware fittings — because your investment deserves to last decades.</p>
+        <div class="slide-btns">
+          <a href="#services" class="btn-gold">View Products</a>
+          <a href="tel:+919394543143" class="btn-outline-w">Call Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=75&auto=format')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Custom Furniture</span>
+        <h2>Designed for You, Built to Perfection</h2>
+        <h3>100% Customized · Budget Friendly · On-Time Delivery</h3>
+        <p>Every piece crafted with precision. Your style, your budget — our expert craftsmanship delivered on schedule.</p>
+        <div class="slide-btns">
+          <a href="#gallery" class="btn-gold">View Gallery</a>
+          <a href="/contact/" class="btn-outline-w">Start Project</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=75&auto=format')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Our Showroom</span>
+        <h2>Visit Us at Bhimavaram</h2>
+        <h3>Open 7 Days · Expert Consultation · Free Estimates</h3>
+        <p>Walk into our showroom and explore a world of premium interior finishes, hardware collections, and custom furniture — all under one roof.</p>
+        <div class="slide-btns">
+          <a href="/contact/" class="btn-gold">Get Directions</a>
+          <a href="#view360" class="btn-outline-w">360° Shop Tour</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="hero-arrow prev" id="heroPrev">&#8592;</button>
+  <button class="hero-arrow next" id="heroNext">&#8594;</button>
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" data-i="0"></button>
+    <button class="hero-dot" data-i="1"></button>
+    <button class="hero-dot" data-i="2"></button>
+    <button class="hero-dot" data-i="3"></button>
+  </div>
+  <div class="hero-bar" id="heroBar"></div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num">4.6 ⭐</span><span class="stat-title">Google Rating</span><span class="stat-sub">Verified reviews</span></div>
+  <div class="stat-item"><span class="stat-num">100%</span><span class="stat-title">Custom Designs</span><span class="stat-sub">Tailored to your vision</span></div>
+  <div class="stat-item"><span class="stat-num">On-Time</span><span class="stat-title">Project Delivery</span><span class="stat-sub">Ahead of schedule</span></div>
+  <div class="stat-item"><span class="stat-num">Best</span><span class="stat-title">Budget-Friendly</span><span class="stat-sub">No compromise on quality</span></div>
+</div>
+
+<!-- RECENT PROJECTS (Manager Uploaded) -->
+{% if project_images %}
+<section id="recent-projects">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem">
+      <div class="section-tag-line">Latest Work</div>
+      <h2 class="section-h2">Recent <em>Projects</em></h2>
+      <p class="section-p">Our most recently completed interior projects — fresh off the workshop floor.</p>
+    </div>
+    <div class="gallery-grid">
+      {% for img in project_images %}
+      <div class="gallery-item" data-src="{{ img.image.url }}">
+        <img src="{{ img.image.url }}" alt="{{ img.title }}" loading="lazy">
+        <div class="gallery-overlay"><span>{{ img.title }}</span></div>
+        <div class="gallery-expand">⤢</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img class="about-img-main" src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=75&auto=format" alt="Sri GST Interiors" loading="lazy">
+        <img class="about-img-thumb" src="{% static 'core/img_1.jpeg' %}" alt="Our Work" loading="lazy">
+        <div class="about-badge"><span class="num">5+</span><span class="lbl">Years of Trust</span></div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag-line">About Sri GST Interiors</div>
+        <h2 class="section-h2">Bhimavaram's <em>Trusted</em> Interior Partner</h2>
+        <p>Sri GST Interiors is a one-stop destination for premium interior work, termite-proof plywood, and rust-proof hardware in Bhimavaram, Andhra Pradesh. Led by Mr. Raja, our team brings exceptional craftsmanship to every project.</p>
+        <p>From custom modular kitchens to full home interiors, we blend the finest materials with outstanding execution — all delivered within your budget.</p>
+        <div class="about-features">
+          <div class="about-feat"><div class="icon">🏠</div>Home Interiors</div>
+          <div class="about-feat"><div class="icon">🪵</div>Termite-Proof Plywood</div>
+          <div class="about-feat"><div class="icon">🔩</div>Rust-Proof Hardware</div>
+          <div class="about-feat"><div class="icon">✏️</div>Custom Furniture</div>
+          <div class="about-feat"><div class="icon">🍳</div>Modular Kitchen</div>
+          <div class="about-feat"><div class="icon">🛏️</div>Bedroom Wardrobes</div>
+        </div>
+        <a href="tel:+919394543143" class="btn-gold" style="margin-top:1.8rem;display:inline-block">📞 +91 93945 43143</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag-line">What We Offer</div>
+      <h2 class="section-h2">Our <em>Services</em></h2>
+      <p class="section-p">From concept to completion — every aspect of your interior project handled with precision.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><div class="svc-icon">🛋️</div><h3>Living Room Interiors</h3><p>Custom TV units, sofa frames, wall paneling and entertainment units crafted to suit your space perfectly.</p><span class="svc-num">01</span></div>
+      <div class="service-card"><div class="svc-icon">🍳</div><h3>Modular Kitchen</h3><p>Fully customized modular kitchens with premium shutters, soft-close fittings, and durable plywood carcase.</p><span class="svc-num">02</span></div>
+      <div class="service-card"><div class="svc-icon">🛏️</div><h3>Bedroom Furniture</h3><p>Wardrobes, cots, dressing units and storage solutions built with termite-proof plywood and flawless finishes.</p><span class="svc-num">03</span></div>
+      <div class="service-card"><div class="svc-icon">🪵</div><h3>Plywood Supply</h3><p>ISI-certified, termite-resistant plywood in all standard and custom sizes — sourced from top manufacturers.</p><span class="svc-num">04</span></div>
+      <div class="service-card"><div class="svc-icon">🔩</div><h3>Hardware & Fittings</h3><p>Complete range of rust-proof hinges, channels, handles, locks and carpentry hardware for all needs.</p><span class="svc-num">05</span></div>
+      <div class="service-card"><div class="svc-icon">🏢</div><h3>Commercial Interiors</h3><p>Office cabins, shop fitting, reception counters and commercial furniture tailored to your exact requirements.</p><span class="svc-num">06</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag-line">Our Work</div>
+      <h2 class="section-h2">Project <em>Gallery</em></h2>
+      <p class="section-p">Actual photos from our completed projects in Bhimavaram, West Godavari.</p>
+    </div>
+    <div class="gallery-tabs">
+      <button class="gtab active" data-tab="all">All Work</button>
+      <button class="gtab" data-tab="recent">Recent</button>
+      <button class="gtab" data-tab="shop">Our Shop</button>
+    </div>
+
+    <div class="gallery-panel active" id="tab-all">
+      <div class="gallery-grid lg">
+        <div class="gallery-item" data-src="{% static 'core/img_1.jpeg' %}"><img src="{% static 'core/img_1.jpeg' %}" alt="Teal Wardrobe" loading="lazy"><div class="gallery-overlay"><span>Bedroom Wardrobe</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_2.jpeg' %}"><img src="{% static 'core/img_2.jpeg' %}" alt="Foyer Unit" loading="lazy"><div class="gallery-overlay"><span>Foyer Design</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_3.jpeg' %}"><img src="{% static 'core/img_3.jpeg' %}" alt="Display Cabinet" loading="lazy"><div class="gallery-overlay"><span>Display Cabinet</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_4.jpeg' %}"><img src="{% static 'core/img_4.jpeg' %}" alt="Kitchen Pantry" loading="lazy"><div class="gallery-overlay"><span>Kitchen Pantry</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_5.jpeg' %}"><img src="{% static 'core/img_5.jpeg' %}" alt="Modular Kitchen" loading="lazy"><div class="gallery-overlay"><span>Modular Kitchen</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_6.jpeg' %}"><img src="{% static 'core/img_6.jpeg' %}" alt="TV Unit" loading="lazy"><div class="gallery-overlay"><span>TV Unit & Wardrobe</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_7.jpeg' %}"><img src="{% static 'core/img_7.jpeg' %}" alt="Kitchen Interior" loading="lazy"><div class="gallery-overlay"><span>Kitchen Interior</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_8.jpeg' %}"><img src="{% static 'core/img_8.jpeg' %}" alt="Butterfly Wardrobe" loading="lazy"><div class="gallery-overlay"><span>Butterfly Wardrobe</span></div><div class="gallery-expand">⤢</div></div>
+      </div>
+    </div>
+
+    <div class="gallery-panel" id="tab-recent">
+      <div class="gallery-grid">
+        <div class="gallery-item" data-src="{% static 'core/img_5.jpeg' %}"><img src="{% static 'core/img_5.jpeg' %}" alt="Kitchen" loading="lazy"><div class="gallery-overlay"><span>Modular Kitchen</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_6.jpeg' %}"><img src="{% static 'core/img_6.jpeg' %}" alt="TV Unit" loading="lazy"><div class="gallery-overlay"><span>TV Unit & Wardrobe</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_7.jpeg' %}"><img src="{% static 'core/img_7.jpeg' %}" alt="Kitchen" loading="lazy"><div class="gallery-overlay"><span>Kitchen Interior</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_8.jpeg' %}"><img src="{% static 'core/img_8.jpeg' %}" alt="Wardrobe" loading="lazy"><div class="gallery-overlay"><span>Butterfly Wardrobe</span></div><div class="gallery-expand">⤢</div></div>
+      </div>
+    </div>
+
+    <div class="gallery-panel" id="tab-shop">
+      <div class="gallery-grid">
+        <div class="gallery-item" data-src="{% static 'core/img_1.jpeg' %}"><img src="{% static 'core/img_1.jpeg' %}" alt="Shop 1" loading="lazy"><div class="gallery-overlay"><span>Showroom</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_2.jpeg' %}"><img src="{% static 'core/img_2.jpeg' %}" alt="Shop 2" loading="lazy"><div class="gallery-overlay"><span>Hardware Display</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_3.jpeg' %}"><img src="{% static 'core/img_3.jpeg' %}" alt="Shop 3" loading="lazy"><div class="gallery-overlay"><span>Plywood Section</span></div><div class="gallery-expand">⤢</div></div>
+        <div class="gallery-item" data-src="{% static 'core/img_4.jpeg' %}"><img src="{% static 'core/img_4.jpeg' %}" alt="Shop 4" loading="lazy"><div class="gallery-overlay"><span>Shop Interior</span></div><div class="gallery-expand">⤢</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev">&#8592;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext">&#8594;</button>
+</div>
+
+<!-- VIDEO -->
+<section id="video-section">
+  <div class="container">
+    <div class="video-grid">
+      <div class="video-wrap">
+        <video controls poster="{% static 'core/img_5.jpeg' %}" style="width:100%;height:400px;object-fit:cover;display:block" preload="none">
+          <source src="{% static 'core/project_video.mp4' %}" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-text">
+        <div class="section-tag-line">Watch Our Work</div>
+        <h2 class="section-h2">See the <em>Magic</em> We Create</h2>
+        <p>Watch how we transform bare rooms into beautifully finished homes. Our team works with precision from day one to handover — on time, every time.</p>
+        <ul class="video-list">
+          <li>Custom furniture crafted on-site in Bhimavaram</li>
+          <li>Termite-proof plywood used in every project</li>
+          <li>Flawless finishes — no compromise on quality</li>
+          <li>Budget-friendly pricing with zero hidden costs</li>
+          <li>Projects delivered ahead of schedule</li>
+        </ul>
+        <a href="https://maps.app.goo.gl/E9dQJXFMYy1YPdG3A" target="_blank" class="btn-gold">View More on Google Maps ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 360 VIEW -->
+<section id="view360">
+  <div class="container">
+    <div class="view360-grid">
+      <div class="view360-text">
+        <div class="section-tag-line">Virtual Tour</div>
+        <h2 class="section-h2">Take a <em>360° Tour</em> of Our Shop</h2>
+        <p>Can't visit us in person? Take a virtual walkthrough of our showroom right from your screen.</p>
+        <p style="color:rgba(255,255,255,.5);font-size:.86rem;margin-bottom:1.8rem">📍 Railway Gate Bypass Road, Bhimavaram, AP 534201</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="https://maps.app.goo.gl/E9dQJXFMYy1YPdG3A" target="_blank" class="btn-gold">Open Full 360° View ↗</a>
+          <a href="tel:+919394543143" class="btn-outline-w" style="border-color:rgba(255,255,255,.3);color:#fff">Book a Visit</a>
+        </div>
+      </div>
+      <div class="view360-frame">
+        <iframe src="https://www.google.com/maps/embed?pb=!4v1699999999999!6m8!1m7!1s3a37d3c90dbbcda9!2m2!1d16.5519088!2d81.5304956!3f0!4f0!5f0.7820865974627469" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="360 View"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section id="beforeafter">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag-line" style="color:var(--gold)">Transformations</div>
+      <h2 class="section-h2" style="color:#fff">Before &amp; <em style="color:var(--gold)">After</em></h2>
+      <p class="section-p" style="color:rgba(255,255,255,.45)">Drag the handle to see our stunning transformations.</p>
+    </div>
+    <div class="ba-wrap" id="baWrap">
+      <img class="ba-before-img" src="{% static 'core/img_7.jpeg' %}" alt="Before">
+      <div class="ba-after-layer" id="baAfterLayer">
+        <img src="{% static 'core/img_1.jpeg' %}" alt="After">
+      </div>
+      <div class="ba-divider" id="baDivider">
+        <div class="ba-handle">⇔</div>
+      </div>
+    </div>
+    <div class="ba-labels"><span class="ba-label">⬅ Before</span><span class="ba-label after">After ➡</span></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag-line">Happy Customers</div>
+      <h2 class="section-h2">What Our <em>Clients Say</em></h2>
+      <p class="section-p">Real reviews from real homeowners who trusted Sri GST Interiors.</p>
+    </div>
+    <div class="testi-track-wrap">
+      <div class="testi-track" id="testiTrack">
+        {% for review in reviews %}
+        <div class="testi-card">
+          <div class="testi-stars">{{ review.stars }}</div>
+          <p class="testi-text">{{ review.text }}</p>
+          <div class="testi-author">
+            <div class="testi-avatar">{{ review.name|first }}</div>
+            <div><span class="testi-name">{{ review.name }}</span><span class="testi-place">{{ review.location }}</span></div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">Highly impressed by the quality & service provided by Mr. Raja. Budget friendly — outstanding design and flawless output. Will definitely recommend!</p><div class="testi-author"><div class="testi-avatar">R</div><div><span class="testi-name">Ravi Kumar</span><span class="testi-place">Bhimavaram</span></div></div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">Outstanding craftsmanship! Custom furniture done for my home — every piece crafted with precision and care. Top-notch quality materials, flawless finishing.</p><div class="testi-author"><div class="testi-avatar">S</div><div><span class="testi-name">Suresh Babu</span><span class="testi-place">West Godavari</span></div></div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">Termite proof plywood, rust proof hardware — quality of making and best execution. They know their materials and it shows in the final result.</p><div class="testi-author"><div class="testi-avatar">P</div><div><span class="testi-name">Priya Reddy</span><span class="testi-place">Bhimavaram</span></div></div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">Impressive design with exceptional quality and flawless finish — all within budget. Delivered the project ahead of schedule! Truly exceeded expectations.</p><div class="testi-author"><div class="testi-avatar">A</div><div><span class="testi-name">Anand Rao</span><span class="testi-place">Bhimavaram</span></div></div></div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="testi-nav">
+      <button id="testiPrev">&#8592;</button>
+      <button id="testiNext">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="whyus-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag-line" style="color:var(--gold)">Why Choose Us</div>
+      <h2 class="section-h2" style="color:#fff">The Sri GST <em style="color:var(--gold)">Advantage</em></h2>
+    </div>
+    <div class="whyus-grid">
+      <div class="why-item"><span class="why-icon">🪵</span><h4>Termite-Proof Plywood</h4><p>ISI-certified, termite-resistant plywood in all furniture — ensuring decades of durability.</p></div>
+      <div class="why-item"><span class="why-icon">🔩</span><h4>Rust-Proof Hardware</h4><p>Premium hinges, channels and fittings that resist rust and corrosion — quality you can feel.</p></div>
+      <div class="why-item"><span class="why-icon">💰</span><h4>Budget Friendly</h4><p>World-class quality at competitive prices — transparent costing, no surprises.</p></div>
+      <div class="why-item"><span class="why-icon">⏰</span><h4>On-Time Delivery</h4><p>We respect your timeline — delivered on schedule, often ahead of it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag-line">Get In Touch</div>
+      <h2 class="section-h2">Visit Our <em>Shop</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Sri GST Interiors, Bhimavaram</h3>
+        <div class="contact-item"><div class="c-icon">📍</div><div><span class="c-label">Address</span><span class="c-val">Railway Gate Bypass Road, Opp. Mentay Vari Thota,<br>Bhimavaram, Andhra Pradesh — 534201</span></div></div>
+        <div class="contact-item"><div class="c-icon">📞</div><div><span class="c-label">Phone / WhatsApp</span><span class="c-val"><a href="tel:+919394543143">+91 93945 43143</a></span></div></div>
+        <div class="contact-item"><div class="c-icon">🗺️</div><div><span class="c-label">Direction</span><span class="c-val"><a href="https://maps.app.goo.gl/E9dQJXFMYy1YPdG3A" target="_blank">Open in Google Maps ↗</a></span></div></div>
+        <h4 style="font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-top:1.4rem;margin-bottom:.5rem">Working Hours</h4>
+        <table class="hours-table">
+          <tr><td>Monday – Saturday</td><td>9:00 AM – 8:30 PM</td></tr>
+          <tr><td>Sunday</td><td>10:00 AM – 4:30 PM</td></tr>
+        </table>
+      </div>
+      <div class="contact-form">
+        <h3>Get a Free Quote</h3>
+        <div class="form-row">
+          <div class="form-group"><label>Your Name</label><input type="text" id="cName" placeholder="Full Name"></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" id="cPhone" placeholder="+91 XXXXX XXXXX"></div>
+        </div>
+        <div class="form-group"><label>Service Needed</label>
+          <select id="cService">
+            <option value="">Select a Service</option>
+            <option>Living Room Interior</option><option>Modular Kitchen</option><option>Bedroom Furniture</option>
+            <option>Plywood Supply</option><option>Hardware & Fittings</option><option>Full Home Interiors</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea id="cMsg" placeholder="Tell us about your project..."></textarea></div>
+        <button class="btn-submit" onclick="submitForm()">Send Enquiry →</button>
+        <div class="success-msg" id="successMsg">✅ Thank you! We'll contact you within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div class="map-section">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4!2d81.5279207!3d16.5519139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a37d3c90dbbcda9%3A0x3615720367bea1ce!2sSri%20GST%20Interiors%20%26%20Sri%20Gst%20Plywood%20%26%20Hardware%20Shop!5e0!3m2!1sen!2sin!4v1699999999999!5m2!1sen!2sin" allowfullscreen loading="lazy"></iframe>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="#home" class="footer-logo">Sri GST Interiors <span>Plywood & Hardware — Bhimavaram, AP</span></a>
+      <p>Bhimavaram's most trusted destination for premium interiors, termite-proof plywood and rust-proof hardware.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/919394543143" class="social-btn">W</a>
+        <a href="tel:+919394543143" class="social-btn">📞</a>
+        <a href="https://maps.app.goo.gl/E9dQJXFMYy1YPdG3A" target="_blank" class="social-btn">G</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="/founders/">Founders</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Living Room Interiors</a></li>
+        <li><a href="#services">Modular Kitchen</a></li>
+        <li><a href="#services">Bedroom Furniture</a></li>
+        <li><a href="#services">Plywood Supply</a></li>
+        <li><a href="#services">Hardware & Fittings</a></li>
+        <li><a href="#services">Commercial Interiors</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919394543143">+91 93945 43143</a></li>
+        <li><a href="https://wa.me/919394543143">WhatsApp Chat</a></li>
+        <li><a href="https://maps.app.goo.gl/E9dQJXFMYy1YPdG3A" target="_blank">Get Directions</a></li>
+        <li><a href="#contact">Bhimavaram AP 534201</a></li>
+        <li><a href="/contact/">Get Free Quote</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 <strong>Sri GST Interiors & Plywood & Hardware</strong>. All rights reserved. · Bhimavaram, Andhra Pradesh</div>
+    <button class="mgr-login-btn" id="mgrLoginBtn" onclick="openMgrDashboard()">🔒 Manager Login</button>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://wa.me/919394543143?text=Hi%2C+I%27m+interested+in+your+services!" class="float-btn float-wa" title="WhatsApp">💬</a>
+  <a href="tel:+919394543143" class="float-btn float-call" title="Call">📞</a>
+</div>
+
+<!-- ════════════ MANAGER DASHBOARD MODAL ════════════ -->
+<div class="mgr-modal" id="mgrModal">
+  <div class="mgr-box">
+    <div class="mgr-header">
+      <h2>🏠 Manager Dashboard</h2>
+      <button class="mgr-close" onclick="closeMgrDashboard()">✕</button>
+    </div>
+    <div class="mgr-body">
+
+      <!-- LOGIN FORM -->
+      <div class="mgr-login-form" id="mgrLoginSection">
+        <h3>Manager Login</h3>
+        <p>Enter your credentials to access the dashboard</p>
+        <div class="mgr-field"><label>Name</label><input type="text" id="mgrName" placeholder="Manager name" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <div class="mgr-field"><label>Password</label><input type="password" id="mgrPass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <div class="mgr-error-msg" id="mgrErrorMsg">Invalid credentials. Please try again.</div>
+        <button class="mgr-submit" onclick="doLogin()">Login to Dashboard →</button>
+      </div>
+
+      <!-- DASHBOARD (shown after login) -->
+      <div class="mgr-dashboard" id="mgrDashboard">
+        <div class="mgr-logout-bar">
+          <span>Logged in as <strong>Manager</strong></span>
+          <button class="mgr-action-btn danger" onclick="doLogout()">Logout</button>
+        </div>
+
+        <!-- TABS -->
+        <div class="mgr-tabs">
+          <button class="mgr-tab active" onclick="switchTab('photos')">📸 Add Photos</button>
+          <button class="mgr-tab" onclick="switchTab('manage')">🗂️ Manage Photos</button>
+          <button class="mgr-tab" onclick="switchTab('reviews')">⭐ Add Review</button>
+        </div>
+
+        <!-- TAB: ADD PHOTOS -->
+        <div class="mgr-tab-panel active" id="tab-photos">
+          <p style="font-size:.84rem;color:rgba(255,255,255,.45);margin-bottom:1.2rem">Upload new project photos — they will appear on the homepage instantly.</p>
+          <div class="mgr-form-row">
+            <input type="text" class="mgr-input" id="upTitle" placeholder="Project title (e.g. Bedroom Wardrobe)">
+            <input type="text" class="mgr-input" id="upCategory" placeholder="Category (e.g. Kitchen, Wardrobe)">
+          </div>
+          <div class="mgr-upload-area" id="uploadArea" onclick="document.getElementById('upFile').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
+            <span class="upload-icon">📷</span>
+            <p>Click or drag & drop photos here</p>
+            <p style="font-size:.76rem;margin-top:.3rem;color:rgba(255,255,255,.28)">JPG, PNG, WEBP — max 10MB each</p>
+            <input type="file" id="upFile" accept="image/*" multiple onchange="previewFiles(this.files)">
+          </div>
+          <div class="mgr-preview" id="upPreview"></div>
+          <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem">
+            <button class="mgr-action-btn" onclick="uploadPhotos()">Upload Photos ↑</button>
+            <div class="mgr-status" id="upStatus"></div>
+          </div>
+        </div>
+
+        <!-- TAB: MANAGE PHOTOS -->
+        <div class="mgr-tab-panel" id="tab-manage">
+          <p style="font-size:.84rem;color:rgba(255,255,255,.45);margin-bottom:1rem">All uploaded project photos. Click ✕ to delete.</p>
+          <div class="mgr-photos-list" id="photosList">
+            <div style="color:rgba(255,255,255,.3);font-size:.82rem;padding:.5rem">Loading photos...</div>
+          </div>
+          <button class="mgr-action-btn" style="margin-top:1rem" onclick="loadPhotos()">🔄 Refresh</button>
+        </div>
+
+        <!-- TAB: ADD REVIEW -->
+        <div class="mgr-tab-panel" id="tab-reviews">
+          <p style="font-size:.84rem;color:rgba(255,255,255,.45);margin-bottom:1.2rem">Add a new customer review. It will appear in the testimonials section.</p>
+          <div class="mgr-form-row">
+            <input type="text" class="mgr-input" id="rvName" placeholder="Customer Name">
+            <input type="text" class="mgr-input" id="rvLocation" placeholder="Location (e.g. Bhimavaram)">
+          </div>
+          <textarea class="mgr-input" id="rvText" rows="4" placeholder="Customer review text..." style="width:100%;resize:vertical;margin-bottom:.8rem"></textarea>
+          <div style="margin-bottom:.8rem">
+            <label style="font-size:.72rem;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);letter-spacing:.08em;display:block;margin-bottom:.4rem">Rating</label>
+            <select class="mgr-input" id="rvStars" style="width:auto">
+              <option value="★★★★★">★★★★★ (5 stars)</option>
+              <option value="★★★★☆">★★★★☆ (4 stars)</option>
+              <option value="★★★☆☆">★★★☆☆ (3 stars)</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem">
+            <button class="mgr-action-btn" onclick="addReview()">Add Review ✓</button>
+            <div class="mgr-status" id="rvStatus"></div>
+          </div>
+        </div>
+
+      </div><!-- end mgr-dashboard -->
+    </div><!-- end mgr-body -->
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev">&#8592;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext">&#8594;</button>
+</div>
+
+<script>
+// ── HERO SLIDER (opacity fade) ──
+const slides = document.querySelectorAll('.slide');
+const heroDots = document.querySelectorAll('.hero-dot');
+const TOTAL = slides.length;
+let current = 0, autoTimer;
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  heroDots[current].classList.remove('active');
+  current = ((n % TOTAL) + TOTAL) % TOTAL;
+  slides[current].classList.add('active');
+  heroDots[current].classList.add('active');
+  // restart progress bar
+  const bar = document.getElementById('heroBar');
+  bar.style.animation = 'none';
+  void bar.offsetWidth;
+  bar.style.animation = 'slideProgress 5s linear forwards';
+}
+
+// initialise first slide
+slides[0].classList.add('active');
+heroDots[0].classList.add('active');
+
+function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 5000); }
+function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+document.getElementById('heroNext').onclick = () => { resetAuto(); goTo(current + 1); };
+document.getElementById('heroPrev').onclick = () => { resetAuto(); goTo(current - 1); };
+heroDots.forEach(d => d.onclick = () => { resetAuto(); goTo(+d.dataset.i); });
+startAuto();
+
+// ── BEFORE / AFTER ──
+(function() {
+  const wrap = document.getElementById('baWrap');
+  const layer = document.getElementById('baAfterLayer');
+  const div = document.getElementById('baDivider');
+  let dragging = false;
+
+  function setPos(x) {
+    const r = wrap.getBoundingClientRect();
+    let pct = Math.max(5, Math.min(95, (x - r.left) / r.width * 100));
+    layer.style.width = pct + '%';
+    div.style.left = pct + '%';
+  }
+
+  wrap.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); e.preventDefault(); });
+  document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+  document.addEventListener('mouseup', () => dragging = false);
+  wrap.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('touchend', () => dragging = false);
+})();
+
+// ── GALLERY TABS ──
+document.querySelectorAll('.gtab').forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.gallery-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  };
+});
+
+// ── LIGHTBOX ──
+const lbImgs = [];
+document.querySelectorAll('.gallery-item').forEach((item, i) => {
+  if (item.dataset.src) lbImgs.push(item.dataset.src);
+  item.onclick = () => { const idx = lbImgs.indexOf(item.dataset.src); openLb(idx >= 0 ? idx : 0); };
+});
+let lbIdx = 0;
+function openLb(i) { lbIdx = i; document.getElementById('lbImg').src = lbImgs[lbIdx]; document.getElementById('lightbox').classList.add('open'); }
+document.getElementById('lbClose').onclick = () => document.getElementById('lightbox').classList.remove('open');
+document.getElementById('lbNext').onclick = () => { lbIdx = (lbIdx + 1) % lbImgs.length; document.getElementById('lbImg').src = lbImgs[lbIdx]; };
+document.getElementById('lbPrev').onclick = () => { lbIdx = (lbIdx - 1 + lbImgs.length) % lbImgs.length; document.getElementById('lbImg').src = lbImgs[lbIdx]; };
+document.onkeydown = e => {
+  if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+  if (e.key === 'ArrowRight' && document.getElementById('lightbox').classList.contains('open')) document.getElementById('lbNext').click();
+  if (e.key === 'ArrowLeft' && document.getElementById('lightbox').classList.contains('open')) document.getElementById('lbPrev').click();
+};
+
+// ── TESTIMONIALS ──
+let testiIdx = 0;
+function getVisibleCount() { return window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3; }
+function moveTesti(dir) {
+  const cards = document.querySelectorAll('.testi-card');
+  const max = cards.length - getVisibleCount();
+  testiIdx = Math.max(0, Math.min(testiIdx + dir, max));
+  const w = cards[0].offsetWidth + 22;
+  document.getElementById('testiTrack').style.transform = `translateX(-${testiIdx * w}px)`;
+}
+document.getElementById('testiNext').onclick = () => moveTesti(1);
+document.getElementById('testiPrev').onclick = () => moveTesti(-1);
+
+// ── MOBILE NAV ──
+document.getElementById('hamburger').onclick = () => document.getElementById('mobileNav').classList.add('open');
+document.getElementById('mobileClose').onclick = () => document.getElementById('mobileNav').classList.remove('open');
+function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+// ── CONTACT FORM ──
+function submitForm() {
+  const name = document.getElementById('cName').value.trim();
+  const phone = document.getElementById('cPhone').value.trim();
+  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  const fd = new FormData();
+  fd.append('name', name); fd.append('phone', phone);
+  fd.append('service', document.getElementById('cService').value);
+  fd.append('message', document.getElementById('cMsg').value);
+  fd.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+  fetch('/enquiry/', { method: 'POST', body: fd })
+    .then(r => r.json())
+    .then(d => {
+      if (d.success) {
+        document.getElementById('successMsg').style.display = 'block';
+        setTimeout(() => window.open(d.wa_url, '_blank'), 300);
+      } else alert(d.error || 'Error. Please call us directly.');
+    }).catch(() => alert('Network error. Call: +91 93945 43143'));
+}
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.onclick = e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  };
+});
+
+// ── MANAGER DASHBOARD ──
+function openMgrDashboard() { document.getElementById('mgrModal').classList.add('open'); }
+function closeMgrDashboard() { document.getElementById('mgrModal').classList.remove('open'); }
+document.getElementById('mgrModal').onclick = e => { if (e.target === document.getElementById('mgrModal')) closeMgrDashboard(); };
+
+function csrf() { return '{{ csrf_token }}'; }
+
+function doLogin() {
+  const name = document.getElementById('mgrName').value.trim();
+  const pass = document.getElementById('mgrPass').value.trim();
+  const fd = new FormData();
+  fd.append('manager_name', name); fd.append('manager_password', pass);
+  fd.append('csrfmiddlewaretoken', csrf());
+  fetch('/manager/login/', { method: 'POST', body: fd })
+    .then(r => r.json())
+    .then(d => {
+      if (d.success) {
+        document.getElementById('mgrLoginSection').style.display = 'none';
+        document.getElementById('mgrDashboard').classList.add('visible');
+        loadPhotos();
+      } else {
+        document.getElementById('mgrErrorMsg').style.display = 'block';
+      }
+    });
+}
+
+function doLogout() {
+  const fd = new FormData(); fd.append('csrfmiddlewaretoken', csrf());
+  fetch('/manager/logout/', { method: 'POST', body: fd }).then(() => {
+    document.getElementById('mgrLoginSection').style.display = '';
+    document.getElementById('mgrDashboard').classList.remove('visible');
+    document.getElementById('mgrName').value = '';
+    document.getElementById('mgrPass').value = '';
+  });
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.mgr-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mgr-tab-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'manage') loadPhotos();
+}
+
+// UPLOAD
+let selectedFiles = [];
+function previewFiles(files) {
+  selectedFiles = Array.from(files);
+  const preview = document.getElementById('upPreview');
+  preview.innerHTML = '';
+  selectedFiles.forEach((f, i) => {
+    const url = URL.createObjectURL(f);
+    preview.innerHTML += `<div class="mgr-preview-item"><img src="${url}"><button class="remove-btn" onclick="removeFile(${i})">✕</button></div>`;
+  });
+}
+function removeFile(i) { selectedFiles.splice(i, 1); previewFiles(selectedFiles); }
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadArea').classList.remove('drag');
+  previewFiles(e.dataTransfer.files);
+}
+
+function setUpStatus(msg, type) {
+  const el = document.getElementById('upStatus');
+  el.textContent = msg; el.className = 'mgr-status ' + (type || '');
+}
+
+function uploadPhotos() {
+  if (!selectedFiles.length) { setUpStatus('Please select at least one photo.', 'err'); return; }
+  const title = document.getElementById('upTitle').value.trim() || 'Recent Project';
+  setUpStatus('Uploading ' + selectedFiles.length + ' photo(s)...', '');
+  let done = 0, failed = 0;
+  const total = selectedFiles.length;
+  selectedFiles.forEach(file => {
+    const fd = new FormData();
+    fd.append('title', title); fd.append('image', file);
+    fd.append('csrfmiddlewaretoken', csrf());
+    fetch('/manager/upload/', { method: 'POST', body: fd })
+      .then(r => r.json())
+      .then(d => {
+        done++;
+        if (d.success) {
+          // ── live inject into Recent Projects section ──
+          injectPhotoToPage(d.url, d.title, d.id);
+        } else { failed++; }
+        if (done === total) {
+          const ok = total - failed;
+          setUpStatus('✅ ' + ok + ' photo(s) uploaded and added to homepage!', 'ok');
+          selectedFiles = [];
+          document.getElementById('upPreview').innerHTML = '';
+          document.getElementById('upTitle').value = '';
+          document.getElementById('upFile').value = '';
+        }
+      }).catch(() => { done++; failed++; setUpStatus('Upload failed. Try again.', 'err'); });
+  });
+}
+
+function injectPhotoToPage(url, title, id) {
+  // ensure Recent Projects section exists, create if not
+  let section = document.getElementById('recent-projects');
+  if (!section) {
+    section = document.createElement('section');
+    section.id = 'recent-projects';
+    section.style.cssText = 'background:var(--white);padding:4rem 2rem';
+    section.innerHTML = `<div class="container">
+      <div class="section-header" style="margin-bottom:2rem">
+        <div class="section-tag-line">Latest Work</div>
+        <h2 class="section-h2">Recent <em>Projects</em></h2>
+        <p class="section-p">Our most recently completed interior projects.</p>
+      </div>
+      <div class="gallery-grid" id="recentGrid"></div>
+    </div>`;
+    // Insert after stats bar
+    const stats = document.querySelector('.stats-bar');
+    stats.insertAdjacentElement('afterend', section);
+  }
+  let grid = document.getElementById('recentGrid');
+  if (!grid) {
+    grid = section.querySelector('.gallery-grid');
+    if (!grid) { grid = document.createElement('div'); grid.id='recentGrid'; grid.className='gallery-grid'; section.querySelector('.container').appendChild(grid); }
+  }
+  const item = document.createElement('div');
+  item.className = 'gallery-item';
+  item.dataset.src = url;
+  item.innerHTML = `<img src="${url}" alt="${title}" style="width:100%;height:210px;object-fit:cover;display:block">
+    <div class="gallery-overlay"><span>${title}</span></div>
+    <div class="gallery-expand">⤢</div>`;
+  item.onclick = () => { lbImgs.push(url); openLb(lbImgs.length - 1); };
+  grid.insertBefore(item, grid.firstChild);
+}
+
+// LOAD PHOTOS
+function loadPhotos() {
+  fetch('/manager/photos/')
+    .then(r => r.json())
+    .then(d => {
+      const list = document.getElementById('photosList');
+      if (!d.photos || !d.photos.length) { list.innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:.82rem;padding:.5rem">No photos uploaded yet.</div>'; return; }
+      list.innerHTML = d.photos.map(p => `
+        <div class="mgr-photo-card" id="pc-${p.id}">
+          <img src="${p.url}" alt="${p.title}" loading="lazy">
+          <div class="card-info">${p.title}</div>
+          <button class="del-btn" onclick="deletePhoto(${p.id})">✕</button>
+        </div>`).join('');
+    }).catch(() => {
+      document.getElementById('photosList').innerHTML = '<div style="color:#ff8888;font-size:.82rem;padding:.5rem">Could not load photos.</div>';
+    });
+}
+
+function deletePhoto(id) {
+  if (!confirm('Delete this photo?')) return;
+  const fd = new FormData(); fd.append('id', id); fd.append('csrfmiddlewaretoken', csrf());
+  fetch('/manager/delete/', { method: 'POST', body: fd })
+    .then(r => r.json())
+    .then(d => { if (d.success) document.getElementById('pc-' + id)?.remove(); else alert('Delete failed.'); });
+}
+
+// ADD REVIEW
+function setRvStatus(msg, type) {
+  const el = document.getElementById('rvStatus');
+  el.textContent = msg; el.className = 'mgr-status ' + (type || '');
+}
+function addReview() {
+  const name = document.getElementById('rvName').value.trim();
+  const location = document.getElementById('rvLocation').value.trim() || 'Bhimavaram';
+  const text = document.getElementById('rvText').value.trim();
+  const stars = document.getElementById('rvStars').value;
+  if (!name || !text) { setRvStatus('Name and review text are required.', 'err'); return; }
+  setRvStatus('Saving...', '');
+  const fd = new FormData();
+  fd.append('name', name); fd.append('location', location);
+  fd.append('text', text); fd.append('stars', stars);
+  fd.append('csrfmiddlewaretoken', csrf());
+  fetch('/manager/review/', { method: 'POST', body: fd })
+    .then(r => r.json())
+    .then(d => {
+      if (d.success) {
+        setRvStatus('✅ Review added and visible on page!', 'ok');
+        // ── live inject review into testimonials ──
+        injectReviewToPage(name, location, text, stars);
+        document.getElementById('rvName').value = '';
+        document.getElementById('rvLocation').value = '';
+        document.getElementById('rvText').value = '';
+      } else setRvStatus('Error: ' + (d.error || 'Failed'), 'err');
+    }).catch(() => setRvStatus('Network error.', 'err'));
+}
+
+function injectReviewToPage(name, location, text, stars) {
+  const track = document.getElementById('testiTrack');
+  if (!track) return;
+  const initial = name.charAt(0).toUpperCase();
+  const card = document.createElement('div');
+  card.className = 'testi-card';
+  card.style.cssText = 'animation:fadeInCard .5s ease both';
+  card.innerHTML = `
+    <div class="testi-stars">${stars}</div>
+    <p class="testi-text">${text}</p>
+    <div class="testi-author">
+      <div class="testi-avatar">${initial}</div>
+      <div><span class="testi-name">${name}</span><span class="testi-place">${location}</span></div>
+    </div>`;
+  track.insertBefore(card, track.firstChild);
+  // reset slider position so new card is visible
+  testiIdx = 0;
+  track.style.transform = 'translateX(0)';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Sri GST Interiors | Bhimavaram</title>
+<meta name="description" content="Contact Sri GST Interiors, Bhimavaram. Get a free quote for interior work, plywood and hardware. Call +91 93945 43143.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#8b5e3c;--primary-dark:#5c3d1e;--gold:#c9a84c;--gold-light:#e8cc7a;
+  --cream:#faf6f0;--dark:#1a1410;--text:#3a2e26;--muted:#7a6a5a;
+  --white:#fff;--border:#e8ddd0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--primary-dark);color:rgba(255,255,255,.8);font-size:.76rem;padding:.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.topbar a{color:var(--gold);text-decoration:none}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:999;background:var(--white);box-shadow:0 2px 16px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:70px;transition:all .3s}
+nav.scrolled{height:60px;box-shadow:0 4px 22px rgba(0,0,0,.12)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--primary-dark);text-decoration:none;line-height:1.1}
+.nav-logo span{color:var(--gold);display:block;font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif}
+.nav-links{display:flex;list-style:none;height:70px}
+.nav-links a{text-decoration:none;font-size:.78rem;font-weight:700;color:var(--muted);padding:0 1rem;letter-spacing:.07em;text-transform:uppercase;height:70px;display:flex;align-items:center;position:relative;transition:color .2s;white-space:nowrap}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:1rem;right:1rem;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:center}
+.nav-links a:hover,.nav-links a.active{color:var(--primary-dark)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-cta{background:var(--gold);color:var(--dark);border:none;cursor:pointer;padding:.6rem 1.4rem;font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;transition:all .25s;white-space:nowrap;text-decoration:none;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+.nav-cta:hover{background:var(--primary-dark);color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--primary-dark);transition:all .3s}
+.mobile-nav{position:fixed;inset:0;background:var(--dark);z-index:1000;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.5rem;transform:translateX(110%);transition:transform .45s cubic-bezier(.77,0,.18,1)}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav a{color:rgba(255,255,255,.85);text-decoration:none;font-size:1.2rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.mobile-nav a:hover{color:var(--gold)}
+.mobile-close{position:absolute;top:1.8rem;right:1.8rem;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer}
+
+/* ── PAGE HERO ── */
+.page-hero{position:relative;background:var(--primary-dark);padding:5rem 2rem 4rem;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:url('https://lh3.googleusercontent.com/places/ANXAkqEzUCAwHPZRfnLXwHdCMxHULauB58Ij_caqbvbR1T3MEN3ANBiecHvrEB13DqBaUz8n-zTs6ZH7qbhuvgu7ERJd5xxC3DbvMg=s4800-w1600-h900') center/cover;opacity:.12}
+.page-hero-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;text-align:center}
+.page-hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:.35rem 1rem;margin-bottom:1.2rem}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:#fff;font-weight:900;line-height:1.15;margin-bottom:.8rem}
+.page-hero h1 em{color:var(--gold);font-style:italic}
+.page-hero p{font-size:.97rem;color:rgba(255,255,255,.6);max-width:500px;margin:0 auto}
+/* Breadcrumb */
+.breadcrumb{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.8rem;font-size:.76rem;color:rgba(255,255,255,.4)}
+.breadcrumb a{color:var(--gold);text-decoration:none}
+.breadcrumb span{color:rgba(255,255,255,.25)}
+
+/* ── INFO CARDS (top row) ── */
+.info-cards{background:var(--white);padding:0 2rem;margin-top:-2rem;position:relative;z-index:2}
+.info-cards-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.info-card{background:var(--white);border:1px solid var(--border);padding:1.8rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:all .3s;position:relative;overflow:hidden}
+.info-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .35s;transform-origin:center}
+.info-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.info-card:hover::after{transform:scaleX(1)}
+.info-ico{width:48px;height:48px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.info-card-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);display:block;margin-bottom:.3rem}
+.info-card-val{font-size:.93rem;font-weight:700;color:var(--text);line-height:1.5}
+.info-card-val a{color:var(--primary);text-decoration:none;transition:color .2s}
+.info-card-val a:hover{color:var(--gold)}
+
+/* ── MAIN GRID ── */
+.contact-main{padding:4rem 2rem 5rem;background:var(--cream)}
+.contact-main-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:start}
+
+/* LEFT SIDE */
+.contact-left h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--primary-dark);font-weight:700;margin-bottom:.5rem}
+.contact-left h2 em{font-style:italic;color:var(--primary)}
+.contact-left .sub{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:2rem}
+
+/* Hours */
+.hours-block{background:var(--white);padding:1.5rem;border-left:3px solid var(--gold);margin-bottom:1.5rem}
+.hours-block h4{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.9rem}
+.hours-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.hours-row:last-child{border-bottom:none}
+.hours-row .day{font-weight:700;color:var(--text)}
+.hours-row .time{color:var(--muted)}
+.hours-row.today .day{color:var(--primary)}
+.hours-row.today .time{color:var(--primary);font-weight:700}
+
+/* Shop photos */
+.shop-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.5rem}
+.shop-photo-grid .big{grid-column:span 2;height:190px}
+.shop-photo-grid .sm{height:120px}
+.shop-ph{overflow:hidden;position:relative}
+.shop-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
+.shop-ph:hover img{transform:scale(1.06)}
+.shop-ph-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(26,20,16,.75),transparent);color:#fff;font-size:.72rem;font-weight:700;padding:.5rem .7rem;opacity:0;transition:opacity .3s}
+.shop-ph:hover .shop-ph-label{opacity:1}
+
+/* Map */
+.map-block{overflow:hidden;border:1px solid var(--border)}
+.map-block iframe{width:100%;height:220px;display:block;border:none}
+.map-link{display:flex;align-items:center;justify-content:center;gap:.5rem;background:var(--primary-dark);color:#fff;text-decoration:none;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.75rem;transition:background .25s}
+.map-link:hover{background:var(--gold);color:var(--dark)}
+
+/* RIGHT SIDE — FORM */
+.quote-form-box{background:var(--white);box-shadow:0 8px 40px rgba(0,0,0,.1);position:sticky;top:90px}
+.form-header{background:var(--primary-dark);padding:2rem 2.2rem}
+.form-header h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:.3rem}
+.form-header h3 em{color:var(--gold);font-style:italic}
+.form-header p{font-size:.82rem;color:rgba(255,255,255,.55)}
+.form-body{padding:2.2rem}
+.fg{margin-bottom:1.1rem}
+.fg label{display:block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:.4rem}
+.fg input,.fg select,.fg textarea{width:100%;padding:.8rem 1rem;border:1.5px solid var(--border);font-family:'Nunito Sans',sans-serif;font-size:.9rem;color:var(--text);background:var(--cream);outline:none;transition:border-color .25s,box-shadow .25s;appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12);background:var(--white)}
+.fg textarea{resize:vertical;min-height:100px}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn-submit{width:100%;background:var(--gold);color:var(--dark);border:none;padding:1.1rem;font-family:'Nunito Sans',sans-serif;font-size:.9rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%)}
+.btn-submit::after{content:'';position:absolute;inset:0;background:var(--primary-dark);transform:translateX(-101%);transition:transform .35s}
+.btn-submit:hover::after{transform:translateX(0)}
+.btn-submit span{position:relative;z-index:1}
+.btn-submit:hover span{color:#fff}
+
+/* WA hint */
+.wa-hint{display:flex;align-items:center;gap:.65rem;background:#e8f5e9;border:1px solid #c8e6c9;padding:.85rem 1rem;margin-top:1rem;font-size:.8rem;color:#2e7d32;font-weight:600}
+.wa-hint .wa-ico{font-size:1.2rem;flex-shrink:0}
+
+/* Success state */
+.success-state{display:none;text-align:center;padding:2rem}
+.success-state .check{width:64px;height:64px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem}
+.success-state h4{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--primary-dark);margin-bottom:.5rem}
+.success-state p{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem}
+.success-state .wa-btn{display:inline-flex;align-items:center;gap:.6rem;background:#25d366;color:#fff;text-decoration:none;padding:.85rem 1.8rem;font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.07em;transition:opacity .2s}
+.success-state .wa-btn:hover{opacity:.88}
+
+/* ── WHY STRIP ── */
+.why-strip{background:var(--primary-dark);padding:3rem 2rem}
+.why-strip-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.why-s{background:var(--primary-dark);padding:2rem 1.5rem;text-align:center;transition:background .3s}
+.why-s:hover{background:rgba(255,255,255,.05)}
+.why-s-ico{font-size:2rem;margin-bottom:.8rem;display:block}
+.why-s h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-bottom:.4rem}
+.why-s p{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.6}
+
+/* ── FLOATING ── */
+.float-wrap{position:fixed;right:1.5rem;bottom:2rem;z-index:500;display:flex;flex-direction:column;gap:.75rem;align-items:flex-end}
+.float-wa,.float-call{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.35rem;box-shadow:0 4px 20px rgba(0,0,0,.28);transition:transform .25s}
+.float-wa:hover,.float-call:hover{transform:scale(1.1) translateY(-2px)}
+.float-wa{background:#25d366;color:#fff}
+.float-call{background:var(--gold);color:var(--dark)}
+
+/* ── FOOTER ── */
+.footer-simple{background:var(--dark);padding:1.5rem 2rem;text-align:center;font-size:.78rem;color:rgba(255,255,255,.3)}
+.footer-simple strong{color:var(--gold)}
+.footer-simple a{color:rgba(255,255,255,.4);text-decoration:none;margin:0 .5rem}
+.footer-simple a:hover{color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .contact-main-inner{grid-template-columns:1fr;gap:2.5rem}
+  .quote-form-box{position:static}
+  .info-cards-inner{grid-template-columns:1fr}
+  .why-strip-inner{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  nav{padding:0 1.5rem}
+  .topbar{padding:.5rem 1rem;font-size:.7rem;flex-direction:column;gap:.3rem;text-align:center}
+  .fg-row{grid-template-columns:1fr}
+  .why-strip-inner{grid-template-columns:1fr 1fr}
+  .float-wrap{right:1rem;bottom:1.5rem}
+}
+.gsap-up{opacity:0;transform:translateY(32px)}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📍 Railway Gate Bypass Road, Bhimavaram AP 534201</span>
+  <span><a href="tel:+919394543143">📞 +91 93945 43143</a> &nbsp;|&nbsp; Mon–Sat: 9 AM – 8:30 PM</span>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="/" class="nav-logo">Sri GST Interiors <span>Plywood & Hardware — Bhimavaram</span></a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#gallery">Gallery</a></li>
+    <li><a href="/#video-section">Video</a></li>
+    <li><a href="/#view360">360° View</a></li>
+    <li><a href="/#testimonials">Reviews</a></li>
+    <li><a href="/contact/" class="active">Contact</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Get Free Quote</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="/#about">About</a>
+  <a href="/#services">Services</a>
+  <a href="/#gallery">Gallery</a>
+  <a href="/#video-section">Video</a>
+  <a href="/#view360">360° View</a>
+  <a href="/#testimonials">Reviews</a>
+  <a href="/contact/">Contact</a>
+  <a href="tel:+919394543143" style="color:var(--gold);margin-top:.5rem;font-size:.95rem">📞 +91 93945 43143</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-tag">📍 Bhimavaram, Andhra Pradesh</div>
+    <h1>Get Your <em>Free Quote</em> Today</h1>
+    <p>Fill in the form below and we'll get back to you within 24 hours — or call us directly anytime.</p>
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span>›</span>
+      <span style="color:rgba(255,255,255,.6)">Contact Us</span>
+    </div>
+  </div>
+</div>
+
+<!-- INFO CARDS -->
+<div class="info-cards">
+  <div class="info-cards-inner">
+    <div class="info-card gsap-up">
+      <div class="info-ico">📍</div>
+      <div>
+        <span class="info-card-title">Our Location</span>
+        <span class="info-card-val">Railway Gate Bypass Road, Opp. Mentay Vari Thota,<br>Bhimavaram, AP — 534201</span>
+      </div>
+    </div>
+    <div class="info-card gsap-up">
+      <div class="info-ico">📞</div>
+      <div>
+        <span class="info-card-title">Call / WhatsApp</span>
+        <span class="info-card-val">
+          <a href="tel:+919394543143">+91 93945 43143</a><br>
+          <a href="https://wa.me/919394543143" style="font-size:.82rem;color:var(--muted)">💬 Chat on WhatsApp →</a>
+        </span>
+      </div>
+    </div>
+    <div class="info-card gsap-up">
+      <div class="info-ico">🕐</div>
+      <div>
+        <span class="info-card-title">Working Hours</span>
+        <span class="info-card-val">
+          Mon – Sat: 9:00 AM – 8:30 PM<br>
+          <span style="color:var(--muted);font-size:.82rem">Sunday: 10:00 AM – 4:30 PM</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTACT SECTION -->
+<section class="contact-main">
+  <div class="contact-main-inner">
+
+    <!-- LEFT: info + map + photos -->
+    <div class="contact-left gsap-up">
+      <h2>Visit Our <em>Showroom</em></h2>
+      <p class="sub">Walk in for a free consultation and see our full range of interior finishes, plywood samples, and hardware collection — no appointment needed.</p>
+
+      <!-- Hours -->
+      <div class="hours-block">
+        <h4>🕐 Working Hours</h4>
+        <div class="hours-row today"><span class="day">Monday</span><span class="time">9:00 AM – 8:30 PM</span></div>
+        <div class="hours-row"><span class="day">Tuesday</span><span class="time">9:00 AM – 8:30 PM</span></div>
+        <div class="hours-row"><span class="day">Wednesday</span><span class="time">9:00 AM – 8:30 PM</span></div>
+        <div class="hours-row"><span class="day">Thursday</span><span class="time">9:00 AM – 8:30 PM</span></div>
+        <div class="hours-row"><span class="day">Friday</span><span class="time">9:00 AM – 8:30 PM</span></div>
+        <div class="hours-row"><span class="day">Saturday</span><span class="time">9:00 AM – 8:30 PM</span></div>
+        <div class="hours-row"><span class="day">Sunday</span><span class="time">10:00 AM – 4:30 PM</span></div>
+      </div>
+
+      <!-- Shop photos -->
+      <div class="shop-photo-grid">
+        <div class="shop-ph big">
+          <img src="https://lh3.googleusercontent.com/places/ANXAkqEzUCAwHPZRfnLXwHdCMxHULauB58Ij_caqbvbR1T3MEN3ANBiecHvrEB13DqBaUz8n-zTs6ZH7qbhuvgu7ERJd5xxC3DbvMg=s4800-w800-h600" alt="Sri GST Interiors Shop">
+          <div class="shop-ph-label">Our Showroom, Bhimavaram</div>
+        </div>
+        <div class="shop-ph sm">
+          <img src="https://lh3.googleusercontent.com/places/ANXAkqGYpikvkP_saG2nuPHHeZCUwUHZGckleXKFcJuHGq4z05n9P1uCTS5jR7onvNa4HtzpaGrrY21MGdRXJCA2FxVE-1m5r9ojlQ=s4800-w600-h400" alt="Hardware Display">
+          <div class="shop-ph-label">Hardware Display</div>
+        </div>
+        <div class="shop-ph sm">
+          <img src="https://lh3.googleusercontent.com/places/ANXAkqGRfb2QOekH_F0_IY9kmrVPumcAJR0YdpWZmqEUdi0z0qjDwQ06YucS3VW4sMIQD-8HWbT2YsBzXl6oZHRmOmxw0sc5I2fTMg=s4800-w600-h400" alt="Our Work">
+          <div class="shop-ph-label">Interior Work</div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-block">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4!2d81.5279207!3d16.5519139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a37d3c90dbbcda9%3A0x3615720367bea1ce!2sSri%20GST%20Interiors%20%26%20Sri%20Gst%20Plywood%20%26%20Hardware%20Shop!5e0!3m2!1sen!2sin!4v1699999999999!5m2!1sen!2sin" allowfullscreen loading="lazy"></iframe>
+        <a href="https://maps.app.goo.gl/E9dQJXFMYy1YPdG3A" target="_blank" class="map-link">📍 Open in Google Maps →</a>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div class="quote-form-box gsap-up">
+      <div class="form-header">
+        <h3>Get a <em>Free Quote</em></h3>
+        <p>We'll WhatsApp you back within 24 hours — guaranteed.</p>
+      </div>
+
+      <div class="form-body" id="formBody">
+        <form id="quoteForm" method="post" action="/enquiry/">
+          {% csrf_token %}
+          <input type="hidden" name="ajax" value="1">
+
+          <div class="fg-row">
+            <div class="fg">
+              <label>Your Name *</label>
+              <input type="text" name="name" id="fname" placeholder="Full name" required autocomplete="name">
+            </div>
+            <div class="fg">
+              <label>Phone Number *</label>
+              <input type="tel" name="phone" id="fphone" placeholder="+91 XXXXX XXXXX" required autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="fg">
+            <label>Service Needed</label>
+            <select name="service" id="fservice">
+              <option value="">Select a service</option>
+              <option value="Living Room Interior" {% if preselect == 'Living Room Interior' %}selected{% endif %}>Living Room Interior</option>
+              <option value="Modular Kitchen" {% if preselect == 'Modular Kitchen' %}selected{% endif %}>Modular Kitchen</option>
+              <option value="Bedroom Furniture" {% if preselect == 'Bedroom Furniture' %}selected{% endif %}>Bedroom Furniture</option>
+              <option value="Plywood Supply" {% if preselect == 'Plywood Supply' %}selected{% endif %}>Plywood Supply</option>
+              <option value="Hardware & Fittings" {% if preselect == 'Hardware & Fittings' %}selected{% endif %}>Hardware & Fittings</option>
+              <option value="Full Home Interiors" {% if preselect == 'Full Home Interiors' %}selected{% endif %}>Full Home Interiors</option>
+              <option value="Commercial Interiors" {% if preselect == 'Commercial Interiors' %}selected{% endif %}>Commercial Interiors</option>
+            </select>
+          </div>
+
+          <div class="fg">
+            <label>Your Message</label>
+            <textarea name="message" id="fmsg" placeholder="Tell us about your project — room size, budget, timeline..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit"><span>Send Enquiry & Open WhatsApp →</span></button>
+        </form>
+
+        <div class="wa-hint">
+          <span class="wa-ico">💬</span>
+          <span>After submitting, <strong>WhatsApp will open automatically</strong> with your details pre-filled for instant confirmation.</span>
+        </div>
+      </div>
+
+      <!-- Success state (shown after submit) -->
+      <div class="success-state" id="successState">
+        <div class="check">✅</div>
+        <h4>Enquiry Sent!</h4>
+        <p>Your details have been saved. WhatsApp is opening with your message pre-filled. We'll confirm shortly!</p>
+        <a href="https://wa.me/919394543143" class="wa-btn" id="waFallback">💬 Open WhatsApp</a>
+        <br><br>
+        <a href="/" style="font-size:.82rem;color:var(--muted);text-decoration:none">← Back to Home</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY STRIP -->
+<div class="why-strip">
+  <div class="why-strip-inner">
+    <div class="why-s"><span class="why-s-ico">🪵</span><h4>Termite-Proof Plywood</h4><p>ISI-certified, guaranteed to last decades.</p></div>
+    <div class="why-s"><span class="why-s-ico">🔩</span><h4>Rust-Proof Hardware</h4><p>Premium fittings that never corrode.</p></div>
+    <div class="why-s"><span class="why-s-ico">💰</span><h4>Budget Friendly</h4><p>World-class quality, honest pricing.</p></div>
+    <div class="why-s"><span class="why-s-ico">⏰</span><h4>On-Time Delivery</h4><p>Projects delivered ahead of schedule.</p></div>
+  </div>
+</div>
+
+<!-- FLOATING -->
+<div class="float-wrap">
+  <a href="https://wa.me/919394543143?text=Hi%2C+I+visited+your+website!" class="float-wa" title="WhatsApp">💬</a>
+  <a href="tel:+919394543143" class="float-call" title="Call">📞</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-simple">
+  © 2026 <strong>Sri GST Interiors & Plywood & Hardware</strong> — Bhimavaram, Andhra Pradesh &nbsp;|&nbsp;
+  <a href="/">Home</a>
+  <a href="tel:+919394543143">Call</a>
+  <a href="https://wa.me/919394543143">WhatsApp</a>
+  <a href="https://maps.app.goo.gl/E9dQJXFMYy1YPdG3A" target="_blank">Directions</a>
+</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// NAV SCROLL
+window.addEventListener('scroll', () => document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 50));
+
+// MOBILE NAV
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileNav').classList.add('open'));
+document.getElementById('mobileClose').addEventListener('click', () => document.getElementById('mobileNav').classList.remove('open'));
+
+// GSAP scroll reveals
+gsap.utils.toArray('.gsap-up').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 36 },
+    { opacity: 1, y: 0, duration: .8, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' }, delay: (i % 3) * .1 }
+  );
+});
+
+// Info cards stagger
+gsap.utils.toArray('.info-card').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 28 },
+    { opacity: 1, y: 0, duration: .65, ease: 'power2.out', delay: i * .12,
+      scrollTrigger: { trigger: '.info-cards-inner', start: 'top 90%' } }
+  );
+});
+
+// Why strip stagger
+gsap.utils.toArray('.why-s').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 24 },
+    { opacity: 1, y: 0, duration: .6, ease: 'power2.out', delay: i * .1,
+      scrollTrigger: { trigger: '.why-strip-inner', start: 'top 85%' } }
+  );
+});
+
+// Highlight today's hours row
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('.hours-row').forEach(row => {
+  if (row.querySelector('.day') && row.querySelector('.day').textContent.trim() === today) {
+    row.classList.add('today');
+  } else {
+    row.classList.remove('today');
+  }
+});
+
+// FORM SUBMIT → save to DB + open WhatsApp
+document.getElementById('quoteForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name  = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+
+  const btn = this.querySelector('.btn-submit');
+  btn.querySelector('span').textContent = 'Sending...';
+  btn.style.opacity = '.7';
+  btn.disabled = true;
+
+  const fd = new FormData(this);
+
+  fetch('/enquiry/', { method: 'POST', body: fd })
+    .then(r => r.json())
+    .then(d => {
+      if (d.success) {
+        // Show success state
+        document.getElementById('formBody').style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+        // Update fallback link
+        document.getElementById('waFallback').href = d.wa_url;
+        // Auto-open WhatsApp
+        setTimeout(() => { window.open(d.wa_url, '_blank'); }, 600);
+      } else {
+        alert(d.error || 'Something went wrong. Please call us: +91 93945 43143');
+        btn.querySelector('span').textContent = 'Send Enquiry & Open WhatsApp →';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+      }
+    })
+    .catch(() => {
+      alert('Network error. Please call us directly: +91 93945 43143');
+      btn.querySelector('span').textContent = 'Send Enquiry & Open WhatsApp →';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+    });
+});
+</script>
+</body>
+</html>
