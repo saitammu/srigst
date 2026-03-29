@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: srigst-interiors
+    runtime: python
+    buildCommand: "cd srigst2 && pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+    startCommand: "cd srigst2 && gunicorn srigst2.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: dvrl3x2ut
+        sync: false
+      - key: 288522187234131
+        sync: false
+      - key: **********
+        sync: false
